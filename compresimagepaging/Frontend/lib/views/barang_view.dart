@@ -155,7 +155,7 @@ class _ImageCardState extends State<ImageCard> {
                     return ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: CachedNetworkImage(
-                        imageUrl: "http://192.168.0.103:8000/storage/${widget.barang.gambar[currentIndex].namaGambar}",
+                        imageUrl: "http://10.0.2.2:8000/storage/${widget.barang.gambar[currentIndex].namaGambar}",
                         fit: BoxFit.cover,
                         width: double.infinity,
                         placeholder: (context, url) => Container(

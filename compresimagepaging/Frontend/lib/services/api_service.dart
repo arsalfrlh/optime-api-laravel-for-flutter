@@ -4,7 +4,7 @@ import 'package:toko/models/video.dart';
 
 class ApiService {
   final dio = Dio(BaseOptions(
-    baseUrl: "http://192.168.0.105:8000/api",
+    baseUrl: "http://10.0.2.2:8000/api",
     sendTimeout: Duration(seconds: 20),
     receiveTimeout: Duration(seconds: 20)
   ));

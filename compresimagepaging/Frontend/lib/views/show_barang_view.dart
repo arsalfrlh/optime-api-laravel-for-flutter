@@ -42,7 +42,7 @@ class _ShowBarangViewState extends State<ShowBarangView> {
                 Text("Merk: ${barangVM.currentBarang?.merk}"),
                 Text("Stok: ${barangVM.currentBarang?.stok}"),
                 Text("harga: ${barangVM.currentBarang?.harga}"),
-                CachedNetworkImage(imageUrl: "http://192.168.0.103:8000/storage/${barangVM.currentBarang?.gambar[0].namaGambar}", fit: BoxFit.cover, width: 80, height: 80,)
+                CachedNetworkImage(imageUrl: "http://10.0.2.2:8000/storage/${barangVM.currentBarang?.gambar[0].namaGambar}", fit: BoxFit.cover, width: 80, height: 80,)
               ],
             ),
           ),

@@ -15,7 +15,7 @@ class _VideoViewState extends State<VideoView> {
   @override
   void initState() {
     super.initState();
-    Future.microtask((){
+    Future.microtask(() {
       final videoVM = Provider.of<VideoViewmodel>(context, listen: false);
       videoVM.fetchVideo();
     });
@@ -32,44 +32,68 @@ class _VideoViewState extends State<VideoView> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: videoVM.isLoading
-      ? Center(child: CircularProgressIndicator(),)
-      : PageView.builder(
-        controller: videoVM.pageController,
-        itemCount: videoVM.videoList.length,
-        scrollDirection: Axis.vertical,
-        onPageChanged: (value) {
-          videoVM.playVideo(videoVM.videoList[value]);
-        },
-        itemBuilder: (context, index) {
-          final video = videoVM.videoList[index];
-          return Stack(
-            alignment: Alignment.center,
-            children: [
-              videoVM.isInitialize
-              ? VideoPlayer(videoVM.controller!)
-              : CachedNetworkImage(imageUrl: "http://192.168.0.103:8000/storage/${video.thumbnail}", fit: BoxFit.cover, errorWidget: (context, url, error) => Icon(Icons.broken_image, size: 120,),),
-              SizedBox(height: 20,),
-              Text(video.title),
-              SizedBox(height: 10,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Slider(
-                    min: 0,
-                    max: videoVM.duration.inMilliseconds.toDouble(),
-                    value: videoVM.position.inMilliseconds.clamp(0, videoVM.duration.inMilliseconds).toDouble(),
-                    onChanged: (value) {
-                      videoVM.seek(Duration(milliseconds: value.toInt()));
-                    },
-                  ),
-                  SizedBox(width: 10,),
-                  IconButton(onPressed: () => videoVM.isPlaying ? videoVM.pause() : videoVM.play(), icon: Icon(videoVM.isPlaying ? Icons.pause : Icons.play_arrow))
-                ],
-              )
-            ],
-          );
-        },
-      ),
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : PageView.builder(
+              controller: videoVM.pageController,
+              itemCount: videoVM.videoList.length,
+              scrollDirection: Axis.vertical,
+              onPageChanged: (value) {
+                videoVM.playVideo(videoVM.videoList[value]);
+              },
+              itemBuilder: (context, index) {
+                final video = videoVM.videoList[index];
+                return Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    videoVM.isInitialize
+                        ? VideoPlayer(videoVM.controller!)
+                        : CachedNetworkImage(
+                            imageUrl:
+                                "http://10.0.2.2:8000/storage/${video.thumbnail}",
+                            fit: BoxFit.cover,
+                            errorWidget: (context, url, error) => Icon(
+                              Icons.broken_image,
+                              size: 120,
+                            ),
+                          ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(video.title),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Slider(
+                          min: 0,
+                          max: videoVM.duration.inMilliseconds.toDouble(),
+                          value: videoVM.position.inMilliseconds
+                              .clamp(0, videoVM.duration.inMilliseconds)
+                              .toDouble(),
+                          onChanged: (value) {
+                            videoVM.seek(Duration(milliseconds: value.toInt()));
+                          },
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        IconButton(
+                            onPressed: () => videoVM.isPlaying
+                                ? videoVM.pause()
+                                : videoVM.play(),
+                            icon: Icon(videoVM.isPlaying
+                                ? Icons.pause
+                                : Icons.play_arrow))
+                      ],
+                    )
+                  ],
+                );
+              },
+            ),
     );
   }
 }

@@ -6,7 +6,7 @@ class VideoService {
   VideoPlayerController? get controller => _controller;
 
   Future<void> initialize(String videoUrl)async{
-    _controller = VideoPlayerController.networkUrl(Uri.parse("http://192.168.0.103:8000/storage/$videoUrl"));
+    _controller = VideoPlayerController.networkUrl(Uri.parse("http://10.0.2.2:8000/storage/$videoUrl"));
     await _controller?.initialize();
     _controller?.setLooping(true);
     _controller?.play();
